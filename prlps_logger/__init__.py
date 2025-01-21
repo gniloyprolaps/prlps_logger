@@ -82,12 +82,13 @@ class GetLog:
                     record.msg = str(record.msg).format(*record.args)
                 return super().format(record)
 
-        file_format = UsualFormatter('%(asctime)s | %(levelname)s : %(message)s', datefmt='%d.%m.%Y %H:%M:%S')
-        file_format.converter = lambda *args: datetime.now(timezone(timedelta(hours=3))).timetuple()
-        file_handler = RotatingFileHandler(log_file, maxBytes=1000000, backupCount=10, encoding='utf-8')
-        file_handler.setLevel(self.log_lvl)
-        file_handler.setFormatter(file_format)
-        self.logger.addHandler(file_handler)
+        if log_file:
+            file_format = UsualFormatter('%(asctime)s | %(levelname)s : %(message)s', datefmt='%d.%m.%Y %H:%M:%S')
+            file_format.converter = lambda *args: datetime.now(timezone(timedelta(hours=3))).timetuple()
+            file_handler = RotatingFileHandler(log_file, maxBytes=1000000, backupCount=10, encoding='utf-8')
+            file_handler.setLevel(self.log_lvl)
+            file_handler.setFormatter(file_format)
+            self.logger.addHandler(file_handler)
 
         console_format = ColoredFormatter('%(asctime)s | %(levelname)s : %(message)s', datefmt='%d.%m.%Y %H:%M:%S')
         console_format.converter = lambda *args: datetime.now(timezone(timedelta(hours=3))).timetuple()
