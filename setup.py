@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='prlps_logger',
-    version='0.0.2',
+    version='0.0.3',
     author='prolapser',
     packages=find_packages(),
     url='https://github.com/gniloyprolaps/prlps_logger',
